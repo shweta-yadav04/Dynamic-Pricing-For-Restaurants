@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://flavor-ai-backend.onrender.com';
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -20,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/profile`, {
+      const res = await fetch(`${BACKEND_URL}/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

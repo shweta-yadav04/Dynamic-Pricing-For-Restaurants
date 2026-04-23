@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://flavor-ai-backend.onrender.com';
+
 const Register = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -25,7 +27,7 @@ const Register = () => {
     setError('');
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/register`, {
+      const res = await fetch(`${BACKEND_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -34,7 +36,7 @@ const Register = () => {
       const data = await res.json();
       if (res.ok) {
         // Automatically login after registration
-        const loginRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
+        const loginRes = await fetch(`${BACKEND_URL}/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: formData.email, password: formData.password })
